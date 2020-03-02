@@ -39,6 +39,13 @@ public class WeChatController {
         return result;
     }
 
+    /**
+     * 微信小程序支付报签名错误：按照微信支付文档开发最后签名错误的话，一般是商户平台所属公司与小程序注册时提交的公司不是同一主体，
+     * 但是微信服务器报的错误是签名错误，需要在商户平台---->产品中心----->APPID授权管理中进行授权，授权通过后才能签名正确
+     * @param request
+     * @return
+     * @throws IOException
+     */
     @PostMapping("/toPay")
     public OrderReturnInfo toPay(HttpServletRequest request) throws IOException {
         try {
@@ -77,7 +84,7 @@ public class WeChatController {
             String sign = Signature.getSign(order);
             order.setSign(sign);
 
-            String result = HttpRequest.sendPost("https://api.mch.weixin.qq.com/pay/unifiedorder", order);
+            String result = HttpRequest.sendPost(Configure.pay_url, order);
             log.info("---------下单返回:"+result);
             XStream xStream = new XStream();
             xStream.alias("xml", OrderReturnInfo.class);

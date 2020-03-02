@@ -12,6 +12,7 @@ public class Configure {
 	public static String secret = "secret";
 
 	public static String pay_url = "https://api.mch.weixin.qq.com/pay/unifiedorder";
+	public static String refund_url = "https://api.mch.weixin.qq.com/secapi/pay/refund";
 
 
 }
